@@ -24,7 +24,7 @@ const PersonTable = () => {
 
   return (
     <table className={styles.table}>
-      <caption className={styles.caption}>Persons Data Grouped by</caption>
+      <caption className={styles.caption}>Persons Data Grouped by Year</caption>
       <thead>
         <tr>
           <th>Date</th>
