@@ -6,7 +6,6 @@ export const groupDataByYear = <T, K extends keyof T>(
   for (const entry of data) {
     const year = new Date(<string>entry[key]).getFullYear();
 
-    console.log("year", year);
     if (!groupedData[year]) {
       groupedData[year] = [];
     }

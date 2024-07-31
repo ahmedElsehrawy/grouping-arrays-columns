@@ -46,14 +46,24 @@ const PersonTable = () => {
             <td>
               <ul className={styles.grouped_list}>
                 {groupedData[year].map((el) => (
-                  <li className={styles.list_item}>{el.first_name} </li>
+                  <li
+                    key={el.first_name + el.last_name}
+                    className={styles.list_item}
+                  >
+                    {el.first_name}{" "}
+                  </li>
                 ))}
               </ul>
             </td>
             <td>
               <ul className={styles.grouped_list}>
                 {groupedData[year].map((el) => (
-                  <li className={styles.list_item}>{el.last_name}</li>
+                  <li
+                    key={el.first_name + el.last_name}
+                    className={styles.list_item}
+                  >
+                    {el.last_name}
+                  </li>
                 ))}
               </ul>
             </td>
