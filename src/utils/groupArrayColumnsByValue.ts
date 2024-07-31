@@ -1,4 +1,4 @@
-export const groupDataByYear = <T, K extends keyof T>(
+export const groupArrayColumnsByKey = <T, K extends keyof T>(
   data: T[],
   key: K
 ): Record<string, T[]> => {

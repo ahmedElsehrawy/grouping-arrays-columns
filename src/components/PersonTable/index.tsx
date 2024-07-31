@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { groupDataByYear } from "../../utils/groupArrayColumnsByValue";
+import { groupArrayColumnsByKey } from "../../utils/groupArrayColumnsByValue";
 import styles from "./PersonTable.module.css";
 
 interface Person {
@@ -8,7 +8,7 @@ interface Person {
   last_name: string;
 }
 
-const DUNNY_DATA: Person[] = [
+const DUMMY_DATA: Person[] = [
   { date: "2022-03-01", first_name: "Ahmed", last_name: "Nasar" },
   { date: "2022-04-15", first_name: "Killian", last_name: "Morphy" },
   { date: "2023-07-22", first_name: "John", last_name: "Doe" },
@@ -19,7 +19,10 @@ const DUNNY_DATA: Person[] = [
 ];
 
 const PersonTable = () => {
-  const groupedData = useMemo(() => groupDataByYear(DUNNY_DATA, "date"), []);
+  const groupedData = useMemo(
+    () => groupArrayColumnsByKey(DUMMY_DATA, "date"),
+    []
+  );
   const years = Object.keys(groupedData);
 
   return (
@@ -27,6 +30,7 @@ const PersonTable = () => {
       <caption className={styles.caption}>Persons Data Grouped by Year</caption>
       <thead>
         <tr>
+          <th>Year</th>
           <th>Date</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -42,21 +46,33 @@ const PersonTable = () => {
                 : styles.uniqueYears
             }
           >
-            <td>{year}</td>
+            <td>{groupedData[year].length > 1 ? year : null}</td>
             <td>
-              <ul className={styles.grouped_list}>
+              <ul>
                 {groupedData[year].map((el) => (
                   <li
                     key={el.first_name + el.last_name}
                     className={styles.list_item}
                   >
-                    {el.first_name}{" "}
+                    {el.date}
                   </li>
                 ))}
               </ul>
             </td>
             <td>
-              <ul className={styles.grouped_list}>
+              <ul>
+                {groupedData[year].map((el) => (
+                  <li
+                    key={el.first_name + el.last_name}
+                    className={styles.list_item}
+                  >
+                    {el.first_name}
+                  </li>
+                ))}
+              </ul>
+            </td>
+            <td>
+              <ul>
                 {groupedData[year].map((el) => (
                   <li
                     key={el.first_name + el.last_name}
