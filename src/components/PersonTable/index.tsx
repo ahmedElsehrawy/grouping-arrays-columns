@@ -18,6 +18,12 @@ const DUMMY_DATA: Person[] = [
   { date: "2018-11-21", first_name: "Emazzia", last_name: "Darcy" },
 ];
 
+const TABLE_COLS = [
+  { label: "Date", dataIndex: "date" },
+  { label: "First Name", dataIndex: "first_name" },
+  { label: "Last Name", dataIndex: "last_name" },
+];
+
 const PersonTable = () => {
   const groupedData = useMemo(
     () => groupArrayColumnsByKey(DUMMY_DATA, "date"),
@@ -31,9 +37,9 @@ const PersonTable = () => {
       <thead>
         <tr>
           <th>Year</th>
-          <th>Date</th>
-          <th>First Name</th>
-          <th>Last Name</th>
+          {TABLE_COLS.map((col) => (
+            <th key={col.dataIndex}>{col.label}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
@@ -47,42 +53,20 @@ const PersonTable = () => {
             }
           >
             <td>{groupedData[year].length > 1 ? year : null}</td>
-            <td>
-              <ul>
-                {groupedData[year].map((el) => (
-                  <li
-                    key={el.first_name + el.last_name}
-                    className={styles.list_item}
-                  >
-                    {el.date}
-                  </li>
-                ))}
-              </ul>
-            </td>
-            <td>
-              <ul>
-                {groupedData[year].map((el) => (
-                  <li
-                    key={el.first_name + el.last_name}
-                    className={styles.list_item}
-                  >
-                    {el.first_name}
-                  </li>
-                ))}
-              </ul>
-            </td>
-            <td>
-              <ul>
-                {groupedData[year].map((el) => (
-                  <li
-                    key={el.first_name + el.last_name}
-                    className={styles.list_item}
-                  >
-                    {el.last_name}
-                  </li>
-                ))}
-              </ul>
-            </td>
+            {TABLE_COLS.map((col) => (
+              <td key={col.dataIndex}>
+                <ul>
+                  {groupedData[year].map((row) => (
+                    <li
+                      key={row.first_name + row.last_name}
+                      className={styles.list_item}
+                    >
+                      {row[col.dataIndex as keyof Person]}
+                    </li>
+                  ))}
+                </ul>
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>
